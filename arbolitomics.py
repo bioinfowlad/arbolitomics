@@ -7,6 +7,19 @@
 #
 # Hardware setup cribbed from https://dordnung.de/raspberrypi-ledstrip/ws2812
 # Software setup cribbed from https://github.com/rpi-ws281x/rpi-ws281x-python
+#
+# First idea was to read off the complete genomic sequence of the Xmas Tree (Picea abies)
+# https://www.ncbi.nlm.nih.gov/genome/11155?genome_assembly_id=367163
+#
+# For this prototype we'll content ourselves with the sequence of its chloroplast genome
+# https://www.ncbi.nlm.nih.gov/nuccore/NC_021456.1
+#
+# Steps:
+# - Downloaded FASTA file from NCBI (sequence.fasta)
+# - Remove header line from FASTA file
+# - Run the awk command below to remove newlines:
+#   awk '/^>/ { print (NR==1 ? "" : RS) $0; next } { printf "%s", $0 } END { printf RS }' sequence.fasta > dna.fasta
+#
 
 # Libraries
 import time
