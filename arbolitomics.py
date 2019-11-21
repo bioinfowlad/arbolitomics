@@ -48,27 +48,37 @@ def colorWipe(strip, color, wait_ms=50):
         strip.show()
         time.sleep(wait_ms / 1000.0)
 
-# Testing addresing
-sequence = "CTGTGGTGTGCACGCACACAGAGACCAGGGGTCAACCTTAGGTCTTGTTCCAAAGAGCTGTTACCTTGCATTCTTTCTAAATTATGTCGGTTCTCCGGTGAGTTTTTACAGGTAGATAATACATTCTGGTTACCTTCTTCCCAGCAGTAC"
-
+# Color Settings
 A_color = [0,0,255] # Blue for Adenine
 T_color = [255,255,0] # Yellow for Thymine
 G_color = [0,255,0] # Green for Guanine
 C_color = [255,0,0] # Red for Cytosine
 
+# Get length of DNA to light up
+with open("dna.fasta") as file:
+    sequence = file.read()
+    seqlen = len(sequence)
+    
 # Main loop
 strip.begin() # Make sure to call before other functions
-for n in range(LED_COUNT):
-    if sequence[n]=='A':
-        strip.setPixelColor(n, Color(A_color[0],A_color[1],A_color[2]))
-    elif sequence[n]=='T':
-        strip.setPixelColor(n, Color(T_color[0],T_color[1],T_color[2]))
-    elif sequence[n]=='G':
-        strip.setPixelColor(n, Color(G_color[0],G_color[1],G_color[2]))
-    elif sequence[n]=='C':
-        strip.setPixelColor(n, Color(C_color[0],C_color[1],C_color[2]))
-strip.show()
 
-input("Press any key to clean and quit")
-colorWipe(strip,Color(0,0,0),10)
+try:
+    while True:
+        with open("dna.fasta") as file:
+            for i in range(seqlen - LED_COUNT):
+                seqframe = file.read(LED_COUNT)
+                for n in range(LED_COUNT):
+                    if seqframe[n]=='A':
+                        strip.setPixelColor(n, Color(A_color[0],A_color[1],A_color[2]))
+                    elif seqframe[n]=='T':
+                        strip.setPixelColor(n, Color(T_color[0],T_color[1],T_color[2]))
+                    elif seqframe[n]=='G':
+                        strip.setPixelColor(n, Color(G_color[0],G_color[1],G_color[2]))
+                    elif seqframe[n]=='C':
+                        strip.setPixelColor(n, Color(C_color[0],C_color[1],C_color[2]))
+                strip.show()
+                time.sleep(0.1)
+                file.seek(i)
+except KeyboardInterrupt:
+    colorWipe(strip,Color(0,0,0),10)
         
