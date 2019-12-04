@@ -1,0 +1,12 @@
+* arbolitomics
+
+This is a script meant to run off a Raspberry Pi connected to a LED strip to make it scroll colors according to a DNA sequence. I wrote it to make Xmas lights (displaying Pine DNA sequences).
+
+The hardware setup is taken from this [[https://dordnung.de/raspberrypi-ledstrip/ws2812][tutorial]]. As in that setup, the script uses the [[https://github.com/rpi-ws281x/rpi-ws281x-python][rpi-ws281x-python]] library.
+
+Some /TODOs/:
+
+** TODO Add error-checking and other robustness
+** TODO Add different viz modes (e.g. introns at lower brightness, start/stop codons
+** TODO Add on-screen preview mode.
+** TODO ...?
