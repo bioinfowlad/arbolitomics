@@ -23,7 +23,6 @@
 
 # Libraries
 import time
-import argparse
 from rpi_ws281x import PixelStrip, Color
 
 # LED Strip Configuration
